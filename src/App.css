@@ -3,3 +3,14 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+.active {
+  color: #1a1a1a;
+  text-decoration: none;
+  border-top: 2px solid black;
+}
+
+img {
+  width: 130px;
+  height: 130px;
+}
