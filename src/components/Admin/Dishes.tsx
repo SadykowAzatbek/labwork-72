@@ -4,7 +4,6 @@ import {selectDishDelete, selectDishes, selectDishFetchLoading} from '../store/d
 import {useEffect} from 'react';
 import {deleteDish, fetchGetDishes} from '../store/AppThunks.ts';
 import Loader from '../Loader/Loader.tsx';
-import {cleanDish} from '../store/dishSlice.ts';
 
 const Dishes = () => {
   const navigate = useNavigate();
@@ -28,10 +27,6 @@ const Dishes = () => {
     await dispatch(fetchGetDishes());
   };
 
-  const cleanForm = () => {
-    dispatch(cleanDish());
-  };
-
   return (
     <>
       <div className="d-flex justify-content-between mt-3">
@@ -46,7 +41,7 @@ const Dishes = () => {
           </div>
           <strong>{dish.price} KGZ</strong>
           <div className="d-flex gap-3">
-            <Link to={'/admin/' + dish.id + '/edit'} onClick={cleanForm} className="btn btn-warning">Edit</Link>
+            <Link to={'/admin/' + dish.id + '/edit'} className="btn btn-warning">Edit</Link>
             <button className="btn btn-danger"
                     onClick={() => onDelete(dish.id)}
                     disabled={deleteLoading ? deleteLoading === dish.id : false}

@@ -1,7 +1,7 @@
 import {fetchDishPost, fetchEditDish, fetchOneDish} from '../store/AppThunks.ts';
 import {useAppDispatch, useAppSelector} from '../../App/hooks.ts';
 import {addDish, cleanDish, selectorDish} from '../store/dishSlice.ts';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import React, {useEffect} from 'react';
 import {selectDish, selectDishEditLoading, selectFetchOneLoading} from '../store/dishesSlice.ts';
 import Loader from '../Loader/Loader.tsx';
@@ -9,8 +9,7 @@ import Loader from '../Loader/Loader.tsx';
 const DishesForm = () => {
   const navigate = useNavigate();
   const {id} = useParams();
-
-  console.log(id);
+  const {pathname} = useLocation();
 
   const dishData = useAppSelector(selectorDish);
   const editLoading = useAppSelector(selectDishEditLoading);
@@ -29,7 +28,11 @@ const DishesForm = () => {
     if (dish) {
       dispatch(addDish(dish));
     }
-  }, [dispatch, dish]);
+
+    if (pathname === '/admin/new') {
+      dispatch(cleanDish());
+    }
+  }, [dispatch, dish, pathname]);
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;

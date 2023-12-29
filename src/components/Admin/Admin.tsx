@@ -1,4 +1,4 @@
-import {NavLink, useLocation, useParams} from 'react-router-dom';
+import {NavLink, useLocation, useNavigate, useParams} from 'react-router-dom';
 import Dishes from './Dishes.tsx';
 import Orders from './Orders.tsx';
 import DishesForm from './DishesForm.tsx';
@@ -7,11 +7,12 @@ import DishesForm from './DishesForm.tsx';
 const Admin = () => {
   const location = useLocation();
   const params = useParams();
+  const navigate = useNavigate();
 
   return (
     <>
       <header className="d-flex justify-content-between border-bottom border-dark">
-        <h1>Turtle Pizza Admin</h1>
+        <h1 onClick={() => navigate('/admin')}>Turtle Pizza Admin</h1>
         <nav>
           <ul className="d-flex gap-2 list-unstyled">
             <li>
