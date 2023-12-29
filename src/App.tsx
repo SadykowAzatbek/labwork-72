@@ -12,6 +12,7 @@ function App() {
         <Route path="/admin/dishes" element={<Admin />} />
         <Route path="/admin/orders" element={<Admin />} />
         <Route path="/admin/new" element={<Admin />} />
+        <Route path="/admin/:id/edit" element={<Admin />} />
         <Route path="*" element={<h2>404, Not found!</h2>} />
       </Routes>
     </>

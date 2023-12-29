@@ -1,4 +1,4 @@
-import {NavLink, useLocation} from 'react-router-dom';
+import {NavLink, useLocation, useParams} from 'react-router-dom';
 import Dishes from './Dishes.tsx';
 import Orders from './Orders.tsx';
 import DishesForm from './DishesForm.tsx';
@@ -6,6 +6,7 @@ import DishesForm from './DishesForm.tsx';
 
 const Admin = () => {
   const location = useLocation();
+  const params = useParams();
 
   return (
     <>
@@ -26,6 +27,7 @@ const Admin = () => {
         {location.pathname === '/admin/dishes' ? (<Dishes />) : ''}
         {location.pathname === '/admin/orders' ? (<Orders />) : ''}
         {location.pathname === '/admin/new' ? (<DishesForm />) : ''}
+        {params.id ? (<DishesForm />) : ''}
       </main>
     </>
   );

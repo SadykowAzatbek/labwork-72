@@ -1,9 +1,10 @@
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../App/hooks.ts';
 import {selectDishDelete, selectDishes, selectDishFetchLoading} from '../store/dishesSlice.ts';
 import {useEffect} from 'react';
 import {deleteDish, fetchGetDishes} from '../store/AppThunks.ts';
 import Loader from '../Loader/Loader.tsx';
+import {cleanDish} from '../store/dishSlice.ts';
 
 const Dishes = () => {
   const navigate = useNavigate();
@@ -25,10 +26,11 @@ const Dishes = () => {
   const onDelete = async (id: string) => {
     await dispatch(deleteDish(id));
     await dispatch(fetchGetDishes());
-
   };
 
-  console.log(dishes);
+  const cleanForm = () => {
+    dispatch(cleanDish());
+  };
 
   return (
     <>
@@ -44,7 +46,7 @@ const Dishes = () => {
           </div>
           <strong>{dish.price} KGZ</strong>
           <div className="d-flex gap-3">
-            <button className="btn btn-warning">Edit</button>
+            <Link to={'/admin/' + dish.id + '/edit'} onClick={cleanForm} className="btn btn-warning">Edit</Link>
             <button className="btn btn-danger"
                     onClick={() => onDelete(dish.id)}
                     disabled={deleteLoading ? deleteLoading === dish.id : false}
