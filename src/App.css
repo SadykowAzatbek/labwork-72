@@ -2,6 +2,7 @@
   width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
 }
 
 .active {
@@ -13,4 +14,32 @@
 img {
   width: 130px;
   height: 130px;
+}
+
+.order-dish {
+  flex-basis: 480px;
+}
+
+.total {
+  position: sticky;
+  bottom: 10px;
+  background: white;
+  border: 1px solid black;
+}
+
+.order-checkout {
+  top: 40px;
+  left: 25%;
+  position: fixed;
+  background: rgb(255, 255, 255);
+  z-index: 10;
+}
+
+.background-grey {
+  position: absolute;
+  background: rgba(89, 86, 86, 0.7);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

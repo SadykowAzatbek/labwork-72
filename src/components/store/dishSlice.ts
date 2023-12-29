@@ -6,6 +6,7 @@ export interface dish {
   title: string;
   price: string;
   image: string;
+  piece: number;
 }
 
 const initialState: dish = {
@@ -13,6 +14,7 @@ const initialState: dish = {
   title: '',
   price: '',
   image: '',
+  piece: 1,
 };
 
 export const dishSlice = createSlice({

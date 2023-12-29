@@ -60,3 +60,28 @@ export const fetchEditDish = createAsyncThunk<void, string, {state: RootState}>(
     await axiosApi.put('dishes/' + id + '.json', data);
   },
 );
+
+export const fetchDishOrder = createAsyncThunk<dish, {dishId: string, piece: number}>(
+  'dish/order',
+  async ({dishId, piece}) => {
+    const response = await axiosApi.get<dish | null>('dishes/' + dishId + '.json');
+    const dish = response.data;
+
+    if (dish === null) {
+      throw new Error('Not found');
+    }
+
+    return {
+      ...dish,
+      id: dishId,
+      piece,
+    };
+  },
+);
+
+export const fetchOrderPost = createAsyncThunk<void, {[key: string]: number}>(
+  'order/post',
+  async (data) => {
+    await axiosApi.post('orders.json', data);
+  },
+);
