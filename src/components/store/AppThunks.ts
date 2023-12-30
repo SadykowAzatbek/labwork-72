@@ -85,3 +85,40 @@ export const fetchOrderPost = createAsyncThunk<void, {[key: string]: number}>(
     await axiosApi.post('orders.json', data);
   },
 );
+
+export const fetchGetOrders = createAsyncThunk<dish[]>(
+  'orders/get',
+  async () => {
+    const responseOrder = await axiosApi.get('orders.json');
+    const orders = responseOrder.data;
+
+    const response = await  axiosApi.get<{[key: string]: dish}>('dishes.json');
+    const dishes = response.data;
+
+    if (!dishes) {
+      return [];
+    }
+
+    const usersOrder = Object.keys(orders).map((key) => {
+
+      return {
+        ...orders[key],
+      };
+
+    });
+
+    const dishesOrder = Object.keys(dishes).map((key) => {
+      const dish = dishes[key];
+
+      return {
+        ...dish,
+        id: key,
+      }
+    });
+
+    return dishesOrder.filter((dishOrder) => {
+        const index = usersOrder.findIndex((userOrder) => userOrder.id === dishOrder.id);
+        return index !== -1;
+    });
+  },
+);

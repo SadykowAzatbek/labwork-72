@@ -1,12 +1,14 @@
 import {dish} from './dishSlice.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {deleteDish, fetchDishOrder, fetchEditDish, fetchGetDishes, fetchOneDish} from './AppThunks.ts';
+import {deleteDish, fetchDishOrder, fetchEditDish, fetchGetDishes, fetchGetOrders, fetchOneDish} from './AppThunks.ts';
 import {RootState} from '../../App/store.ts';
 
 export interface dishes {
   dishes: dish[];
   oneDish: dish | null;
   dishesOrder: dish[];
+  userOrders: dish[];
+  userOrdersLoading: boolean;
   fetchLoading: boolean;
   fetchOneLoading: boolean;
   orderLoading: boolean;
@@ -19,6 +21,8 @@ const initialState: dishes = {
   dishes: [],
   oneDish: null,
   dishesOrder: [],
+  userOrders: [],
+  userOrdersLoading: false,
   fetchLoading: false,
   fetchOneLoading: false,
   orderLoading: false,
@@ -87,6 +91,16 @@ export const dishesSlice = createSlice({
     builder.addCase(fetchDishOrder.rejected, (state) => {
       state.orderLoading = false;
     });
+    builder.addCase(fetchGetOrders.pending, (state) => {
+      state.userOrdersLoading = true;
+    });
+    builder.addCase(fetchGetOrders.fulfilled, (state, {payload: dishOrder}) => {
+      state.userOrdersLoading = false;
+      state.userOrders = dishOrder;
+    });
+    builder.addCase(fetchGetOrders.rejected, (state) => {
+      state.userOrdersLoading = false;
+    });
   },
 });
 
@@ -105,3 +119,4 @@ export const selectDishEditLoading = (state: RootState) => state.dishes.dishEdit
 export const selectOrderLoading = (state: RootState) => state.dishes.orderLoading;
 export const selectDishDelete = (state: RootState) => state.dishes.deleteDish;
 export const selectToggleHiddenBlock = (state: RootState) => state.dishes.hiddenBlock;
+export const selectUserOrders = (state: RootState) => state.dishes.userOrders;

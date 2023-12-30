@@ -28,6 +28,7 @@ const Client = () => {
   useEffect(() => {
     const fetchUrl = async () => {
       await dispatch(fetchGetDishes());
+
     };
 
     void fetchUrl();
@@ -106,7 +107,7 @@ const Client = () => {
         <div>
           {dishesOrder.map((dish) => (
             <div key={dish.id}>
-              <div>{dish.title} x {dish.piece}</div>
+              <div>{dish.title} x {dish.piece}<strong>X</strong></div>
             </div>
           ))}
           <div className="mt-3">Delivery: {delivery} KGZ</div>
